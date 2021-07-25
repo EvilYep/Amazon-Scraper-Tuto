@@ -53,6 +53,19 @@ app.get('/products/:productId/offers', async (req, res) => {
     }
 })
 
+// GET SEARCH RESULTS
+app.get('/search/:searchQuery', async (req, res) => {
+    const { searchQuery } = req.params;
+
+    try {
+        const response = await request(`${baseURl}&url=https://www.amazon.fr/s?k=${searchQuery}`);
+
+        res.json(JSON.parse(response));
+    } catch (error) {
+        res.json(error);
+    }
+})
+
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
