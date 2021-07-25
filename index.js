@@ -40,6 +40,19 @@ app.get('/products/:productId/reviews', async (req, res) => {
     }
 })
 
+// GET PRODUCT OFFERS
+app.get('/products/:productId/offers', async (req, res) => {
+    const { productId } = req.params;
+
+    try {
+        const response = await request(`${baseURl}&url=https://www.amazon.fr/gp/offer-listing/${productId}`);
+
+        res.json(JSON.parse(response));
+    } catch (error) {
+        res.json(error);
+    }
+})
+
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
